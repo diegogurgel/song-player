@@ -24,18 +24,6 @@
 	player.indexSong = 0
 	player.onended = next;
 
-
-	songs = {
-		"titles": [
-		{
-			"name": "let_her"
-		},
-		{
-			"name": "all_off_me",
-			"artist": "Jhon Legend"
-		}
-		]
-	};
 	songs  = getListSongs();
 
 	function next () {
