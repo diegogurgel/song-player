@@ -3,21 +3,22 @@
 	$(".btn-play").click(function(){
 		if(player.paused){
 			player.play();
-			$(".btn-play").addClass("pause");
+
 		}else{
 			player.pause();
-			$(".btn-play").removeClass("pause");
+
 		}
 	}).on('touchend', function(event) {
 		event.preventDefault();
 		if(player.paused){
 			player.play();
-			$(".btn-play").addClass("pause");
+
 		}else{
 			player.pause();
-			$(".btn-play").removeClass("pause");
+
 		}
 	});
+
 
 	player.onpause= function(){
 		$(".btn-play").removeClass("pause");
@@ -34,6 +35,13 @@
 
 	songs  = getListSongs();
 	first();
+
+	$(".btn-next").click(function(event) {
+		player.next();
+	});
+	$(".btn-prev").click(function(event) {
+		player.prev();
+	});
 
 	function next () {
 		player.indexSong++;
