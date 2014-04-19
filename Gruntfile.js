@@ -15,11 +15,16 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
+    var fs = require('fs');
+
     // Configurable paths
     var config = {
         app: 'app',
         dist: 'dist'
     };
+
+   
+
 
     // Define the configuration for all the tasks
     grunt.initConfig({
@@ -64,21 +69,48 @@ module.exports = function (grunt) {
         },
 
         // The actual grunt server settings
+        
+
         connect: {
             options: {
                 port: 9000,
                 open: true,
                 livereload: 35729,
                 // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
                     middleware: function(connect) {
+                        var r = require("connect-route");
                         return [
                             connect.static('.tmp'),
                             connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
+                            connect.static(config.app),
+
+                            r(function(app){
+                                app.get('/songs',function(req,res){
+                                    res.writeHead(200, {"Content-Type": "json"});
+                                    fs.readdir(config.app+"/songs", function (err, files) {
+                                        var json = {
+                                        'titles':[]};
+
+                                        files.forEach(function(song){
+                                            json.titles.push({
+                                                "name":song
+                                            });
+
+                                        });
+
+
+                                        res.end(JSON.stringify(json));
+                                    });
+
+
+                                    
+                                });
+                            })
+
                         ];
                     }
                 }
@@ -93,6 +125,7 @@ module.exports = function (grunt) {
                             connect.static('test'),
                             connect().use('/bower_components', connect.static('./bower_components')),
                             connect.static(config.app)
+                            
                         ];
                     }
                 }
@@ -367,4 +400,12 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+
+
 };
+
+
+
+
+

@@ -8,6 +8,15 @@
 			player.pause();
 			$(".btn-play").removeClass("pause");
 		}
+	}).on('touchend', function(event) {
+		event.preventDefault();
+		if(player.paused){
+			player.play();
+			$(".btn-play").addClass("pause");
+		}else{
+			player.pause();
+			$(".btn-play").removeClass("pause");
+		}
 	});
 
 
@@ -16,17 +25,25 @@
 	player.onended = next;
 
 
-		songs = {
-		titles:["let_her","all_off_me"],
-
+	songs = {
+		"titles": [
+		{
+			"name": "let_her"
+		},
+		{
+			"name": "all_off_me",
+			"artist": "Jhon Legend"
+		}
+		]
 	};
+	songs  = getListSongs();
 
 	function next () {
 		player.indexSong++;
 		if(player.indexSong===songs.titles.length){
 			player.indexSong=0;
 		}
-		player.src="songs/"+songs.titles[player.indexSong]+".mp3";
+		player.src="songs/"+songs.titles[player.indexSong].name;
 		player.play();
 	}
 	function prev (pos){
@@ -34,13 +51,38 @@
 		if(player.indexSong===0){
 			player.indexSong=songs.titles.length-1;	
 		}		
-		player.src="songs/"+songs.titles[player.indexSong]+".mp3";
+		player.src="songs/"+songs.titles[player.indexSong].name;
 		player.play();
 	}
+   var goFS = document.getElementById("goFS");
+   goFS.addEventListener("click", function() {
+      document.body.webkitRequestFullscreen();
+   }, false);
 
 
 })();
 
+	function getListSongs(){
+		var songs;
+		$.ajax({
+			url: 'songs',
+			type: 'GET',
+			async:false,
+		})
+		.done(function(data) {
+			
+			songs = data;
+
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			
+		});
+		return songs;
+		
+	}
 
 	function preLoadNextSong(){
 		$.ajax({
