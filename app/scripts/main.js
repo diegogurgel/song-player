@@ -19,29 +19,43 @@
 		}
 	});
 
+	player.onpause= function(){
+		$(".btn-play").removeClass("pause");
+	}
+	player.onplay = function(){
+		$(".btn-play").addClass("pause");
+	}
+
 
 	player.next = next;
+	player.prev = prev;
 	player.indexSong = 0
 	player.onended = next;
 
 	songs  = getListSongs();
+	first();
 
 	function next () {
 		player.indexSong++;
 		if(player.indexSong===songs.titles.length){
 			player.indexSong=0;
 		}
-		player.src="songs/"+songs.titles[player.indexSong].name;
+		player.src="songs/"+songs.titles[player.indexSong].title;
 		player.play();
 	}
-	function prev (pos){
+	function prev (){
 		player.indexSong--;
-		if(player.indexSong===0){
+		if(player.indexSong<0){
 			player.indexSong=songs.titles.length-1;	
 		}		
-		player.src="songs/"+songs.titles[player.indexSong].name;
+		player.src="songs/"+songs.titles[player.indexSong].title;
 		player.play();
 	}
+	function first(){
+		player.src="songs/"+songs.titles[player.indexSong].title;
+
+	}
+
    var goFS = document.getElementById("goFS");
    goFS.addEventListener("click", function() {
       document.body.webkitRequestFullscreen();
@@ -72,9 +86,9 @@
 		
 	}
 
-	function preLoadNextSong(){
+	function preLoadNextSong(songName){
 		$.ajax({
-			url: 'songs/let_her.mp3',
+			url: 'songs/'+songName,
 			type: 'GET',
 		})
 		.done(function() {

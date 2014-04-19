@@ -83,6 +83,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function(connect) {
                         var r = require("connect-route");
+                        var id3 = require('id3js');
                         return [
                             connect.static('.tmp'),
                             connect().use('/bower_components', connect.static('./bower_components')),
@@ -90,22 +91,35 @@ module.exports = function (grunt) {
 
                             r(function(app){
                                 app.get('/songs',function(req,res){
+                                    var json = {
+                                    'titles':[]};
                                     res.writeHead(200, {"Content-Type": "json"});
                                     fs.readdir(config.app+"/songs", function (err, files) {
-                                        var json = {
-                                        'titles':[]};
+
 
                                         files.forEach(function(song){
-                                            json.titles.push({
+                                            /*json.titles.push({
                                                 "name":song
+                                            });*/
+                                            id3({ file: 'app/songs/'+song, type: id3.OPEN_LOCAL }, function(err, tags) {
+                                                tags.title = song;
+                                                json.titles.push(tags);
+                                                if(json.titles.length === files.length){
+                                                    ok();
+                                                }
                                             });
-
                                         });
+                                        
+                                        function ok(){
+                                            res.end(JSON.stringify(json));
+                                        };
 
-
-                                        res.end(JSON.stringify(json));
+                                    
+                                        
                                     });
 
+
+                                    
 
                                     
                                 });
