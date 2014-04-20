@@ -1,5 +1,11 @@
+
+
 body{
-  font-family: tahoma,arial;
+font-family: tahoma,arial;
+background-size: 80px 80px;
+background-color: #fff;
+background-image:linear-gradient(0deg,rgba(241,97,76,0.5) 50%, transparent 50%), 
+                 linear-gradient(90deg ,rgba(241,97,76,0.5) 50%, transparent 50%);
 }
 .btn-play::before {
   position:absolute;
@@ -78,11 +84,14 @@ body{
 
 .player-container{
   margin:0 auto;
-  background-color: #ddd;
+  background-color: #fff;
   padding: 4em;
   border-radius:10px;
   display:table;
-
+}
+.player-container,.songlist{
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #333;
 }
 
 
@@ -116,6 +125,7 @@ body{
   margin-top: 1em;
   width: 350px;
   border-radius: 10px;
+/*  border:solid 1px #333;*/
 }
 .songlist>ul{
   padding: 0;
@@ -128,11 +138,11 @@ body{
 }
 .songlist>ul>li{
   font-size: 0.8em;
-
-    padding: 1em;
-    background-color: #eee;
-    margin-bottom: 1px;
+  padding: 1em;
+  
 }
 .songlist>ul>li.playing{
-  background-color: #ddd;
+  background-color: #f1614c;
+  font-weight: 100;
+  color:#fff;
 }

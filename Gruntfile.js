@@ -95,19 +95,27 @@ module.exports = function (grunt) {
                                     'titles':[]};
                                     res.writeHead(200, {"Content-Type": "json"});
                                     fs.readdir(config.app+"/songs", function (err, files) {
-
-
-                                        files.forEach(function(song){
+                                        var songs = files.filter(function(el){
+                                            if(el.substring(el.length-4,el.length)===".mp3")
+                                            {
+                                                return el;
+                                            }
+                                        });
+                                        
+                                        songs.forEach(function(song,index){
                                             /*json.titles.push({
                                                 "name":song
                                             });*/
-                                            id3({ file: 'app/songs/'+song, type: id3.OPEN_LOCAL }, function(err, tags) {
-                                                tags.title = song;
-                                                json.titles.push(tags);
-                                                if(json.titles.length === files.length){
-                                                    ok();
-                                                }
-                                            });
+                                                id3({ file: 'app/songs/'+song, type: id3.OPEN_LOCAL }, function(err, tags) {
+                                                    console.log(song,err);
+                                                    tags.title = song;
+                                                    json.titles.push(tags);
+                                                    
+                                                    if(json.titles.length === songs.length){
+                                                        ok();
+                                                    }
+                                                });
+                                            
                                         });
                                         
                                         function ok(){
