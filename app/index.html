@@ -22,7 +22,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <section class="player-container">
+        <section class="player-container" id="player-container">
             <div class="btn-play"></div>
             <div class="btn btn-prev"></div>
             <div class="btn btn-next"></div>
@@ -49,8 +49,11 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
+        <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pn281ivwcytiojj"></script>
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script type="text/javascript" src="scripts/dropbox.js"></script>
         <!-- endbuild -->
+
 </body>
 </html>
