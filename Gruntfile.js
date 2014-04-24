@@ -112,13 +112,13 @@ module.exports = function (grunt) {
                                                     json.titles.push(tags);
                                                     
                                                     if(json.titles.length === songs.length){
-                                                        ok();
+                                                        returnSongList();
                                                     }
                                                 });
                                             
                                         });
                                         
-                                        function ok(){
+                                        function returnSongList(){
                                             res.end(JSON.stringify(json));
                                         };
 

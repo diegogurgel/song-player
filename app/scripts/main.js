@@ -64,12 +64,8 @@
 	function first(){
 		player.src="songs/"+songs.titles[player.indexSong].title;
 	}
-	player.playIndex = function(index){
-		player.src="songs/"+songs.titles[index].title;
-		player.indexSong = index;
-		player.play();
+	player.playIndex = playSong;
 
-	}
 
    /*var goFS = document.getElementById("goFS");
    goFS.addEventListener("click", function() {
@@ -79,8 +75,8 @@
 
    for (var i = 0; i < songs.titles.length; i++) {
    		var title = songs.titles[i].title;
-   		title = title.substring(0,title.length-4);
-   		$('.songlist>ul').append('<li pos='+i+'>'+title+'</li>');
+   		
+   		appendSongToList(i,title);
    }
    $('.songlist>ul>li').click(function(){
    		if($(this).hasClass("playing")){
@@ -100,6 +96,23 @@
 
 
 })();
+	function playSong(index){
+		
+		if(songs.titles[index].link){
+			player.src=songs.titles[index].link;
+		}else{
+			player.src="songs/"+songs.titles[index].title;
+		}
+		player.indexSong = index;
+		player.play();
+
+
+
+	}
+	function appendSongToList(index, title){
+		title = title.substring(0,title.length-4);
+		$('.songlist>ul').append('<li pos='+index+'>'+title+'</li>');
+	}
 
 	function getListSongs(){
 		var songs;
