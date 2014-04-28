@@ -93,6 +93,7 @@ module.exports = function (grunt) {
                                 app.get('/songs',function(req,res){
                                     var json = {
                                     'titles':[]};
+
                                     res.writeHead(200, {"Content-Type": "json"});
                                     fs.readdir(config.app+"/songs", function (err, files) {
                                         var songs = files.filter(function(el){
@@ -101,6 +102,9 @@ module.exports = function (grunt) {
                                                 return el;
                                             }
                                         });
+                                        if(songs.length===0){
+                                            returnSongList();
+                                        }
                                         
                                         songs.forEach(function(song,index){
                                             /*json.titles.push({
