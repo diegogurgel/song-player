@@ -36,7 +36,11 @@
 	player.onended = next;
 
 	songs  = getListSongs();
-	first();
+	console.log(songs);
+	if(songs.titles.length!=0){
+		first();
+	}
+
 
 	$(".btn-next").click(function(event) {
 		player.next();
@@ -73,7 +77,6 @@
 
    for (var i = 0; i < songs.titles.length; i++) {
    		var title = songs.titles[i].title;
-   		
    		appendSongToList(i,title);
    }
    $('.songlist>ul>li').click(function(){
