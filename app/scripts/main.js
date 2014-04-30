@@ -50,16 +50,14 @@
 		if(player.indexSong===songs.titles.length){
 			player.indexSong=0;
 		}
-		player.src="songs/"+songs.titles[player.indexSong].title;
-		player.play();
+		playSong(player.indexSong);
 	}
 	function prev (){
 		player.indexSong--;
 		if(player.indexSong<0){
 			player.indexSong=songs.titles.length-1;	
 		}		
-		player.src="songs/"+songs.titles[player.indexSong].title;
-		player.play();
+		playSong(player.indexSong);
 	}
 	function first(){
 		player.src="songs/"+songs.titles[player.indexSong].title;

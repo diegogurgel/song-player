@@ -45,6 +45,6 @@
     extensions: ['.mp3'],
 };
     var button = Dropbox.createChooseButton(options);
-    document.getElementById("player-container").appendChild(button);
+    document.getElementById("drop-box").appendChild(button);
 
 })();
