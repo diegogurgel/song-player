@@ -8,13 +8,6 @@ var http = require('http')
     , server = http.createServer(app)
     , io = require('socket.io').listen(server);
 
-
-
-
-require('./node_modules/control-for-player/controll.js');
-
-
-
 var config = {
     app: 'app',
     dist: 'dist'
@@ -27,15 +20,21 @@ app.set('views', __dirname + '/app');
 
 
 
-app.use(express.static(__dirname + '/app/bower_components')); 
+
 
 
 app.get('/', function(req,res,next){
     console.log("------------OK----------");
     res.cookie('bar', 'baz');
     res.render("index.html",{nome:"Diego Gurgel",idade:22});
+    app.use(express.static(__dirname + '/app'));
+    app.use(express.static(__dirname + '/bower_components')); 
+});
 
-
+app.get('/control', function(req,res,next){
+    console.log("------------OK----------");
+    res.cookie('bar', 'baz');
+    res.render("control.html",{nome:"Diego Gurgel",idade:22});
     app.use(express.static(__dirname + '/app'));
 });
 
@@ -43,11 +42,26 @@ app.get('/styles', function(req,res){
     
     console.log(req);
 });
-app.get('/next',function(req,res){
+app.post('/next',function(req,res){
     io.sockets.in('123').emit('next');
     res.writeHead(200);
     res.end("ok");
-})
+});
+app.post('/play',function(req,res){
+    io.sockets.in('123').emit('play');
+    res.writeHead(200);
+    res.end("ok");
+});
+app.post('/pause',function(req,res){
+    io.sockets.in('123').emit('pause');
+    res.writeHead(200);
+    res.end("ok");
+});
+app.post('/prev',function(req,res){
+    io.sockets.in('123').emit('prev');
+    res.writeHead(200);
+    res.end("ok");
+});
 
 
 
@@ -88,10 +102,20 @@ app.get('/songs',function(req,res){
 
         });
 });
-server.listen(8080,'0.0.0.0');
+server.listen(8080,'10.12.10.58');
 
 io.sockets.on('connection',function(socket){
     //console.log(socket);
     socket.join('123');
+
+    socket.on('pause',function(){
+        io.sockets.in('123').emit('pause');
+    })
+    socket.on('next',function(){
+        io.sockets.in('123').emit('next');
+    })
+    socket.on('prev',function(){
+        io.sockets.in('123').emit('prev');
+    })
 });
 

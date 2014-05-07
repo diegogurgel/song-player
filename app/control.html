@@ -19,19 +19,8 @@
 
         <script src="/socket.io/socket.io.js"></script>
         <script>
-              var socket = io.connect('http://10.12.10.58');
-              socket.on('next', function () {
-                player.next();
-              });
-              socket.on('play', function () {
-                player.play();
-              });
-              socket.on('pause', function () {
-                player.pause();
-              });
-              socket.on('prev', function () {
-                player.prev();
-              });
+          var socket = io.connect('http://10.12.10.58');
+
         </script>
     </head>
     <body>
@@ -71,7 +60,7 @@
 
         <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pn281ivwcytiojj"></script>
         <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
+        <script src="scripts/control.js"></script>
         <script type="text/javascript" src="scripts/dropbox.js"></script>
         <!-- endbuild -->
 
