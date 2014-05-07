@@ -16,6 +16,14 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          var socket = io.connect('http://localhost');
+          socket.on('next', function () {
+            player.next();
+          });
+        </script>
     </head>
     <body>
         <!--[if lt IE 10]>
