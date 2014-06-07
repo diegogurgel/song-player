@@ -1,4 +1,4 @@
 song-player
 ===========
 
-Simple song player html5 based
+html5 player and remote control, created using node.js and soket.io
